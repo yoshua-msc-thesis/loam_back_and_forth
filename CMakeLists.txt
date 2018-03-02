@@ -15,23 +15,19 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   pcl_conversions
   pcl_ros
-  tf)
-
-find_package(Eigen3 REQUIRED)
-find_package(PCL REQUIRED)
-# set ( OpenCV_DIR   "/home/alfredoso/Software/OpenCV/build/")
-# find_package(OpenCV REQUIRED)
-set ( OpenCV_DIR   "/home/alfredoso/Software/OpenCV2/build/")
-find_package(OpenCV 2 REQUIRED)
-
-include_directories(
-  #include
-  ${catkin_INCLUDE_DIRS}
-  ${EIGEN3_INCLUDE_DIR}
-  ${PCL_INCLUDE_DIRS}
-  ${OpenCV_INCLUDE_DIRS}
 )
 
+find_package(Eigen3 REQUIRED QUIET)
+find_package(PCL REQUIRED QUIET)
+set(OpenCV_DIR $ENV{OPENCV2_INSTALL_DIR})
+find_package(OpenCV 2 REQUIRED QUIET)
+
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+  ${PCL_INCLUDE_DIRS}
+)
 
 LIST(APPEND LINK_LIBS
   ${catkin_LIBRARIES}
@@ -40,7 +36,6 @@ LIST(APPEND LINK_LIBS
 )
 
 catkin_package(
-  #INCLUDE_DIRS include
   DEPENDS EIGEN3 PCL OpenCV EIGEN3
   CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs
 )
