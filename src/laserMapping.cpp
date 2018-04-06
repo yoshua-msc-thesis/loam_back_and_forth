@@ -49,9 +49,9 @@ pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudCorner2(new pcl::PointCloud<pcl
 pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudSurf2(new pcl::PointCloud<pcl::PointXYZHSV>());
 pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudLast(new pcl::PointCloud<pcl::PointXYZHSV>());
 pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudOri(new pcl::PointCloud<pcl::PointXYZHSV>());
-//pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudSel(new pcl::PointCloud<pcl::PointXYZHSV>());
-//pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudCorr(new pcl::PointCloud<pcl::PointXYZHSV>());
-//pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudProj(new pcl::PointCloud<pcl::PointXYZHSV>());
+  // pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudSel(new pcl::PointCloud<pcl::PointXYZHSV>());
+  pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudCorr(new pcl::PointCloud<pcl::PointXYZHSV>());
+  // pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudProj(new pcl::PointCloud<pcl::PointXYZHSV>());
 pcl::PointCloud<pcl::PointXYZHSV>::Ptr coeffSel(new pcl::PointCloud<pcl::PointXYZHSV>());
 pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudFromMap(new pcl::PointCloud<pcl::PointXYZHSV>());
 pcl::PointCloud<pcl::PointXYZHSV>::Ptr laserCloudCornerFromMap(new pcl::PointCloud<pcl::PointXYZHSV>());
@@ -234,13 +234,13 @@ int main(int argc, char** argv)
   ros::Publisher pubLaserCloudSurround = nh.advertise<sensor_msgs::PointCloud2> 
                                          ("/laser_cloud_surround", 1);
 
-  //ros::Publisher pub1 = nh.advertise<sensor_msgs::PointCloud2> ("/pc1", 1);
+    // ros::Publisher pub1 = nh.advertise<sensor_msgs::PointCloud2> ("/pc1", 1);
 
-  //ros::Publisher pub2 = nh.advertise<sensor_msgs::PointCloud2> ("/pc2", 1);
+    // ros::Publisher pub2 = nh.advertise<sensor_msgs::PointCloud2> ("/pc2", 1);
 
-  //ros::Publisher pub3 = nh.advertise<sensor_msgs::PointCloud2> ("/pc3", 1);
+    ros::Publisher pub3 = nh.advertise<sensor_msgs::PointCloud2> ("/pc3", 1);
 
-  //ros::Publisher pub4 = nh.advertise<sensor_msgs::PointCloud2> ("/pc4", 1);
+    // ros::Publisher pub4 = nh.advertise<sensor_msgs::PointCloud2> ("/pc4", 1);
 
   ros::Publisher pubOdomBefMapped = nh.advertise<nav_msgs::Odometry> ("/bef_mapped_to_init_2", 5);
   nav_msgs::Odometry odomBefMapped;
@@ -402,9 +402,9 @@ int main(int argc, char** argv)
 
         for (int iterCount = 0; iterCount < 10; iterCount++) {
           laserCloudOri->clear();
-          //laserCloudSel->clear();
-          //laserCloudCorr->clear();
-          //laserCloudProj->clear();
+            // laserCloudSel->clear();
+            laserCloudCorr->clear();
+            // laserCloudProj->clear();
           coeffSel->clear();
 
           for (int i = 0; i < laserCloudLastNum; i++) {
@@ -467,13 +467,13 @@ int main(int argc, char** argv)
 
                     if (s > 0.2) {
                       laserCloudOri->push_back(pointOri);
-                      //laserCloudSel->push_back(pointSel);
-                      //laserCloudProj->push_back(pointProj);
-                      //laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[0]]);
-                      //laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[1]]);
-                      //laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[2]]);
-                      //laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[3]]);
-                      //laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[4]]);
+                        // laserCloudSel->push_back(pointSel);
+                        // laserCloudProj->push_back(pointProj);
+                        laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[0]]);
+                        laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[1]]);
+                        laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[2]]);
+                        laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[3]]);
+                        laserCloudCorr->push_back(laserCloudSurfFromMap->points[pointSearchInd[4]]);
                       coeffSel->push_back(coeff);
                     }
                   }
@@ -578,13 +578,13 @@ int main(int argc, char** argv)
 
                     if (s > 0.4) {
                       laserCloudOri->push_back(pointOri);
-                      //laserCloudSel->push_back(pointSel);
-                      //laserCloudProj->push_back(pointProj);
-                      //laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[0]]);
-                      //laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[1]]);
-                      //laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[2]]);
-                      //laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[3]]);
-                      //laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[4]]);
+                        // laserCloudSel->push_back(pointSel);
+                        // laserCloudProj->push_back(pointProj);
+                        laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[0]]);
+                        laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[1]]);
+                        laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[2]]);
+                        laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[3]]);
+                        laserCloudCorr->push_back(laserCloudCornerFromMap->points[pointSearchInd[4]]);
                       coeffSel->push_back(coeff);
                     }
                   }
